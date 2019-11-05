@@ -17,7 +17,7 @@ kubectl apply -f istio-1.3.4/install/kubernetes/istio-demo.yaml
 kubectl get svc -n istio-system
 
 *\#deploy app*  
-kubectl label namespace default istio-injection=enabled
-kubectl create -n default -f deployment.yaml
-kubectl expose deployment hello-from-container --type=LoadBalancer --port=8080
-minikube service hello-from-container 
+kubectl label namespace default istio-injection=enabled  
+kubectl create -n default -f deployment.yaml  
+kubectl expose deployment hello-from-container --type=LoadBalancer --port=8080  
+minikube service hello-from-container  
