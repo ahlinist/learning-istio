@@ -22,3 +22,9 @@ kubectl label namespace default istio-injection=enabled
 kubectl create -n default -f deployment.yaml  
 kubectl expose deployment hello-from-container --type=LoadBalancer --port=8080  
 minikube service hello-from-container  
+
+*\#collect metrics*  
+(?) kubectl apply -f istio-1.3.4/samples/bookinfo/telemetry/metrics.yaml  
+
+kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=prometheus -o jsonpath='{.items[0].metadata.name}') 9090:9090 &  
+open: http://localhost:9090/graph  
