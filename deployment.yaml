@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-from-container
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-from-container
+  template:
+    metadata:
+      labels:
+        app: hello-from-container
+    spec:
+      containers:
+        - name: hello-from-container
+          image: antonhlinisty/hello-from-container:v14
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
