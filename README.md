@@ -1,5 +1,6 @@
 # learning-istio
 
+git clone https://github.com/ahlinist/learning-istio.git  
 cd learning-istio
 
 minikube start --memory=16384 --cpus=4 --kubernetes-version=v1.14.2
