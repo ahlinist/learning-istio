@@ -23,16 +23,14 @@ kubectl create -n default -f deployment.yaml
 kubectl expose deployment hello-from-container --type=LoadBalancer --port=8080  
 minikube service hello-from-container  
 
-*\#collect metrics*  
-(?) kubectl apply -f istio-1.3.4/samples/bookinfo/telemetry/metrics.yaml  
+*\#apply custom filter to collect metrics*  
+kubectl apply -f metrics.yaml  
 
 kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=prometheus -o jsonpath='{.items[0].metadata.name}') 9090:9090 &  
 open: http://localhost:9090/graph  
 
-execute graph with query: 
-- envoy_cluster_internal_upstream_rq  
-- envoy_cluster_upstream_rq_total
-
+custom metrics are available via the following query execution: 
+- istio_custom_request_count  
 
 *\#grafana*  
 kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}') 3000:3000 &  

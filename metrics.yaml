@@ -1,0 +1,48 @@
+# Configuration for metric instances
+apiVersion: config.istio.io/v1alpha2
+kind: instance
+metadata:
+  name: customrequestcount
+  namespace: istio-system
+spec:
+  compiledTemplate: metric
+  params:
+    value: "1"
+    dimensions:
+      host: request.host | "unknown"
+      requestPath: request.url_path | "unknown"
+      requestMethod: request.method | "unknown"
+      responseCode: response.code | 0
+      destination: destination.workload.name | "unknown"
+    monitored_resource_type: '"UNSPECIFIED"'
+---
+# Configuration for a Prometheus handler
+apiVersion: config.istio.io/v1alpha2
+kind: handler
+metadata:
+  name: customhandler
+  namespace: istio-system
+spec:
+  compiledAdapter: prometheus
+  params:
+    metrics:
+      - name: custom_request_count # Prometheus metric name
+        instance_name: customrequestcount.instance.istio-system # Mixer instance name (fully-qualified)
+        kind: COUNTER
+        label_names:
+          - host
+          - requestPath
+          - requestMethod
+          - responseCode
+          - destination
+---
+# Rule to send metric instances to a Prometheus handler
+apiVersion: config.istio.io/v1alpha2
+kind: rule
+metadata:
+  name: cutomprom
+  namespace: istio-system
+spec:
+  actions:
+    - handler: customhandler
+      instances: [ customrequestcount ]
