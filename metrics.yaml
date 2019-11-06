@@ -14,6 +14,7 @@ spec:
       requestMethod: request.method | "unknown"
       responseCode: response.code | 0
       destination: destination.workload.name | "unknown"
+      source_workload_namespace: source.workload.namespace | "unknown"
     monitored_resource_type: '"UNSPECIFIED"'
 ---
 # Configuration for a Prometheus handler
@@ -35,6 +36,7 @@ spec:
           - requestMethod
           - responseCode
           - destination
+          - source_workload_namespace
 ---
 # Rule to send metric instances to a Prometheus handler
 apiVersion: config.istio.io/v1alpha2
