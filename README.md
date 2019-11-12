@@ -12,7 +12,7 @@ curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.3.4 sh -
 for i in istio-1.3.4/install/kubernetes/helm/istio-init/files/crd*yaml; do kubectl apply -f $i; done
 
 *\#install demo profile*  
-kubectl apply -f istio-1.3.4/install/kubernetes/istio-demo.yaml
+kubectl apply -f install-istio.yaml
 
 *\#verifying installation*  
 kubectl get svc -n istio-system
