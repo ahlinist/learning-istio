@@ -23,10 +23,8 @@ minikube service hello-from-container
 kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=prometheus -o jsonpath='{.items[0].metadata.name}') 9090:9090 &  
 open: http://localhost:9090/graph  
 
-custom metrics are available via the following query execution: 
+metrics are available via the following query execution: 
 - istio_requests_total  
-- istio_custom_request_count  
-- envoy_cluster_internal_upstream_rq  
 
 *\#grafana*  
 kubectl apply -f install-grafana.yaml  
