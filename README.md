@@ -30,11 +30,11 @@ kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=pr
 open: http://localhost:9090/graph  
 
 custom metrics are available via the following query execution: 
-- istio_requests_total
+- istio_requests_total  
 - istio_custom_request_count  
-- envoy_cluster_internal_upstream_rq
+- envoy_cluster_internal_upstream_rq  
 
 *\#grafana*  
-kubectl apply -f install-istio.yaml
+kubectl apply -f install-istio.yaml  
 kubectl -n istio-system port-forward $(kubectl -n istio-system get pod -l app=grafana -o jsonpath='{.items[0].metadata.name}') 3000:3000 &  
 goto: http://localhost:3000/dashboard/db/istio-mesh-dashboard  
